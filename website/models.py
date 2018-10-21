@@ -21,8 +21,8 @@ class Snp(models.Model):
 	gene = models.ForeignKey(Gene, on_delete=models.CASCADE)
 	cancertype = models.ForeignKey(Cancer, on_delete=models.CASCADE)
 	rareall = models.CharField(max_length=2)
-	value = models.IntegerField(default=1)
-	coeff = models.IntegerField(default=1)
+	value = models.FloatField(default=1)
+	coeff = models.FloatField(default=1)
 	link = models.CharField(max_length=100)
 
 	def __str__(self):

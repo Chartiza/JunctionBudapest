@@ -20,8 +20,9 @@ def parsedb():
         else:
             gclist[c].append(db_snp)
         #gclist[db_snp]=gc
-        db_allele[db_snp]=dbline['rareall']
-        db_coeff[db_snp]=dbline['coeff']
+        db_allele[db_snp]=str(dbline['rareall'])
+        db_coeff[db_snp]=str(dbline['coeff'])
+    print (db_allele, db_coeff)
     return gclist,db_allele,db_coeff,links
 
 def parseFile(f,gclist,db_allele,db_coeff):
@@ -49,6 +50,7 @@ def parseFile(f,gclist,db_allele,db_coeff):
             results[c]=float(results[c])/(54.4)
         else:
             results[c]=float(results[c])/(44.06)
+    print (results)
     return results
 
 def index(request):
@@ -89,7 +91,7 @@ def results(request):
     for s in res:
         snip = list(Snp.objects.filter(snp=s).values())[0]
         if s in res:
-            snip1 = str(res[s])
+            snip1 = str(round(res[s], 2))
         else:
             snip1 = '0'
         if snip['cancertype_id'] == 1:
