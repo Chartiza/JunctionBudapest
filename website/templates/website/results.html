@@ -1,0 +1,277 @@
+{% load static %}
+
+{% load crispy_forms_tags %}
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'website/style.css' %}">
+
+    <title>Junction challenge</title>
+    <!-- <link rel="icon" type="image/x-icon" href="{% static 'cowapp/images/cow-favicon.ico' %}"/> -->
+  </head>
+  <body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
+      <div class="container">
+        <a class="navbar-brand" href="/">Cancerometer</a>
+      </div>
+    </nav>
+
+    <div class="container">
+        <br>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="card text-center">
+                    <div class="card-block">
+                        <h5 class="card-title">Lung cancer risk</h5>
+                        <div class="progress">
+                            <div class="progress-bar {{ lungCancerRiskPercentsColor }}" role="progressbar" style="width: {{ lungCancerRiskPercents }}%" aria-valuenow="{{ lungCancerRisk }}" aria-valuemin="0" aria-valuemax="1">{{ lungCancerRisk }}</div>
+                        </div>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                <th scope="col">SNP found</th>
+                                <th scope="col">Risk value (lower is better)</th>
+                                <th scope="col">Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for line in lungTableLines %}
+                                    <tr>
+                                    <th scope="row">{{ line.0 }}</th>
+                                    <td>{{ line.1 }}</td>
+                                    <td><a href={{ line.2 }}>{{ line.3 }}</a></td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="card text-center">
+                    <div class="card-block">
+                        <h5 class="card-title">Breast cancer risk</h5>
+                        <div class="progress">
+                                <div class="progress-bar {{ breastCancerRiskPercentsColor }}" role="progressbar" style="width: {{ breastCancerRiskPercents }}%" aria-valuenow="{{ breastCancerRisk }}" aria-valuemin="0" aria-valuemax="1">{{ breastCancerRisk }}</div>
+                            </div>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                <th scope="col">SNP found</th>
+                                <th scope="col">Risk value (lower is better)</th>
+                                <th scope="col">Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for line in breastTableLines %}
+                                    <tr>
+                                    <th scope="row">{{ line.0 }}</th>
+                                    <td>{{ line.1 }}</td>
+                                    <td><a href={{ line.2 }}>{{ line.3 }}</a></td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="col-sm-6">
+                <div id="accordion">
+                    <div class="card">
+                        <div class="card-header" id="headingOne">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                Who is at risk
+                            </button>
+                        </h5>
+                        </div>
+                        <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                        <div class="card-body">
+                            <ul>
+                                <li>Have a 30-pack year or more smoking history and currently smoke</li>
+                                <li>Are between the ages of 55 and 80</li>
+                                <li>Have genetic mutation known to increase risk of lung cancer</li>
+                                <li>Have smoked within the past 15 years</li>
+                            </ul>
+                        </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header" id="headingTwo">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                Early symptoms
+                            </button>
+                        </h5>
+                        </div>
+                        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                        <div class="card-body">
+                            <ul>
+                            <li><h5>Cough that won’t quit</h5></li>
+                            Be on alert for a new cough that lingers. A cough associated with a cold or respiratory infection will go away in a week or two, but a persistent cough that lingers can be a symptom of lung cancer.
+                            Don’t be tempted to dismiss a stubborn cough, whether it’s dry or produces mucus. See your doctor right away. They will listen to your lungs and may order an X-ray or other tests.
+                            <br><br>
+                            <li><h5>Change in a cough</h5></li>
+                            Pay attention to any changes in a chronic cough, particularly if you smoke. If you’re coughing more often, your cough is deeper or sounds hoarse, or you’re coughing up blood or an unusual amount of mucus, it’s time to make a doctor’s appointment.
+                            If a family member or friend experiences these changes, suggest that they visit their doctor. Learn about the symptoms and causes of bronchorrhea.
+                            <br><br>
+                            <li><h5>Breathing changes</h5></li>
+                            Shortness of breath or becoming easily winded are also possible symptoms of lung cancer. Changes in breathing can occur if lung cancer blocks or narrows an airway, or if fluid from a lung tumor builds up in the chest.
+                            Make a point of noticing when you feel winded or short of breath. If you find it difficult to breathe after climbing stairs or performing tasks you once found easy, don’t ignore it.
+                            <br><br>
+                            <li><h5>Pain in the chest area</h5></li>
+                            Lung cancer may produce pain in the chest, shoulders, or back. An aching feeling may not be associated with coughing. Tell your doctor if you notice any type of chest pain, whether it’s sharp, dull, constant, or intermittent.
+                            You should also note whether it’s confined to a specific area or occurring throughout your chest. When lung cancer causes chest pain, the discomfort may result from enlarged lymph nodes or metastasis to the chest wall, the lining around the lungs, called pleura, or the ribs.
+                            <br><br>
+                            <li><h5>Wheezing</h5></li>
+                            When airways become constricted, blocked, or inflamed, the lungs produce a wheezing or whistling sound when you breathe. Wheezing can be associated with multiple causes, some of which are benign and easily treatable.
+                            However, wheezing is also a symptom of lung cancer, which is why it merits your doctor’s attention. Don’t assume that wheezing is caused by asthma or allergies. Have your doctor confirm the cause.
+                            <br><br>
+                            <li><h5>Raspy, hoarse voice</h5></li>
+                            If you hear a significant change in your voice, or if someone else points out that your voice sounds deeper, hoarse, or raspier, get checked out by your doctor.
+                            Hoarseness can be caused by a simple cold, but this symptom may point to something more serious when it persists for more than two weeks. Hoarseness related to lung cancer can occur when the tumor affects the nerve that controls the larynx, or voice box.
+                            <br><br>
+                            <li><h5>Drop in weight</h5></li>
+                            An unexplained weight loss of 10 pounds or more may be associated with lung cancer or another type of cancer. When cancer is present, this drop in weight may result from cancer cells using energy. It could also result from shifts in the way the body uses energy from food.
+                            Don’t write off a change in your weight if you haven’t been trying to shed pounds. It may be a clue to a change in your health.
+                            <br><br>
+                            <li><h5>Bone pain</h5></li>
+                            Lung cancer that has spread to the bones may produce pain in the back or in other areas of the body. This pain may worsen at night while resting on the back. It may be difficult to differentiate between bone and muscle pain. Bone pain is often worse at night and increases with movement.
+                            Additionally, lung cancer is sometimes associated with shoulder, arm, or neck pain, although this is less common. Be attentive to your aches and pains, and discuss them with your doctor.
+                            <br><br>
+                            <li><h5>Headache</h5></li>
+                            Headaches may be a sign that lung cancer has spread to the brain. However, not all headaches are associated with brain metastases.
+                            Sometimes, a lung tumor may create pressure on the superior vena cava. This is the large vein that moves blood from the upper body to the heart. The pressure can also trigger headaches, or in more severe cases, migraines.
+                            </ul>
+                        </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header" id="headingThree">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                What to do
+                            </button>
+                        </h5>
+                        </div>
+                        <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                        <div class="card-body">
+                            If you’re experiencing any of the symptoms associated with lung disease or meet any of the criteria that apply to people at high risk, talk with your doctor about whether low-dose CT screening is appropriate for you. Use Varian early detection methods.
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div id="accordion">
+                    <div class="card">
+                        <div class="card-header" id="headingFour">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                Who is at risk
+                            </button>
+                        </h5>
+                        </div>
+                        <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
+                        <div class="card-body">
+                            <ul>
+                                <li>Personal history of breast cancer</li>
+                                <li>Strong family history of breast cancer</li>
+                                <li>Genetic mutation known to increase risk of breast cancer</li>
+                                <li>Woman over age of 40</li>
+                                <li>Late menopause start</li>
+                                <li>Never being pregnant</li>
+                                <li>Early menstruation</li>
+                                <li>Giving birth at an older age</li>
+                                <li>Hormone therapy</li>
+                            </ul>
+                        </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header" id="headingFive">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                                Early symptoms
+                            </button>
+                        </h5>
+                        </div>
+                        <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordion">
+                        <div class="card-body">
+                            <ul>
+                                <li>A breast lump or tissue thickening that feels different than surrounding tissue and has developed recently
+                                <li>Breast pain
+                                <li>Red, pitted skin over your entire breast
+                                <li>Swelling in all or part of your breast
+                                <li>A nipple discharge other than breast milk
+                                <li>Bloody discharge from your nipple
+                                <li>Peeling, scaling, or flaking of skin on your nipple or breast
+                                <li>A sudden, unexplained change in the shape or size of your breast
+                                <li>Sometimes a breast cancer can spread to lymph nodes under the arm or around the collar bone and cause a lump or swelling there, even before the original tumor in the breast is large enough to be felt. Swollen lymph nodes should also be checked by a health care provider.
+                                <li>Inverted nipple
+                                <li>Breathlessness
+                                <li>Feeling sick (nausea)
+                                <li>An uncomfortable stomach area (abdomen)
+                                <li>Headaches
+                                <li>Feeling generally unwell and losing weight
+                                <li>An unexplained weight loss of 10 pounds or more may be associated with lung cancer or another type of cancer. When cancer is present, this drop in weight may result from cancer cells using energy. It could also result from shifts in the way the body uses energy from food.
+                            </ul>
+                        </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header" id="headingSix">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                                What to do
+                            </button>
+                        </h5>
+                        </div>
+                        <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#accordion">
+                        <div class="card-body">
+                            <p>If you have any of these symptoms, it doesn’t necessarily mean you have breast cancer. For instance, pain in your breast or a breast lump can be caused by a breast cyst. Still, if you find a lump in your breast or have other symptoms, you should see your doctor for further examination and testing. Some of the most widely practiced diagnostic methods:</p>
+                            <ul>
+                                <li><h5>Mammograms</h5></li>
+                                Mammograms are low-dose x-rays that can help find breast cancer. If you've been told you need a mammogram, or you're ready to start breast cancer screening, the topics below can help you know what to expect.
+                                <br><br>
+                                <li><h5>Breast Ultrasound</h5></li>
+                                Breast ultrasound is often used to examine some types of breast changes.
+                                <br><br>
+                                <li><h5>Breast MRI Scans</h5></li>
+                                Breast MRI (magnetic resonance imaging) uses radio waves and strong magnets to make detailed pictures of the inside of the breast.
+                                <br><br>
+                                <li><h5>Newer and Experimental Breast Imaging Tests</h5></li>
+                                Newer types of tests are being developed for breast imaging. Some of these are already being used in certain situations, while others are still being studied. It will take time to see if any are as good as or better than those used today.
+                                A newer type of mammogram is known as breast tomosynthesis or 3D mammography. For this test, a machine takes many low-dose x-rays as it moves over the breast. A computer then puts the images together into a 3-dimensional picture.
+                            </ul>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
+  </body>
+</html>
