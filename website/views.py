@@ -38,7 +38,7 @@ def parseFile(f,gclist,db_allele,db_coeff):
             elif test_allele[0]!=test_allele[1]:
                 results[test_snp]+=1.5*float(db_coeff[test_snp])
             else:
-                results[test_snp]+=1
+                results[test_snp]+=0
     for c in gclist:
         for s in gclist[c]:
             if s in results:
