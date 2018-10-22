@@ -1,4 +1,3 @@
-This project was made during JunctionBudapest2018
 # Cancerometer
 
 ## Project description
